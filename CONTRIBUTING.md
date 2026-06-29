@@ -16,6 +16,29 @@ file only adds what is specific to Polaris Academy.
   can align before you invest time.
 - **Be respectful.** See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
+## Before opening a PR
+
+For starter changes, run:
+
+```bash
+cd starters/ai-incident-support-assistant
+make setup
+make test
+make check
+make inspect-dataset
+make manual-baseline
+```
+
+If you changed evidence checking, also run:
+
+```bash
+python3 -m py_compile scripts/check_evidence.py
+python3 tests/test_check_evidence.py
+```
+
+Keep PRs **small and focused**, use **synthetic data only**, add **no LLM/RAG/Agent**
+to Level 1, and never commit secrets or real PII.
+
 ## Non-negotiable rules
 
 - **Synthetic data only.** Every dataset and example must be synthetic.

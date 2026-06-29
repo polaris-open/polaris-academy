@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  starter:
+    name: Validate starter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Python version
+        run: python3 --version
+
+      - name: Run starter checks
+        working-directory: starters/ai-incident-support-assistant
+        run: |
+          make setup
+          make test
+          make check
+          make inspect-dataset
+          make manual-baseline
+
+      - name: Compile Python scripts
+        working-directory: starters/ai-incident-support-assistant
+        run: |
+          python3 -m py_compile \
+            tests/test_dataset.py \
+            tests/test_check_evidence.py \
+            scripts/inspect_dataset.py \
+            scripts/manual_baseline.py \
+            scripts/check_evidence.py
+
+# Note: `make evidence` is intentionally NOT run here. The repo's artifact files are
+# templates, so on a fresh checkout `make evidence` is expected to fail by design.
+# It is a tool the learner runs in their own clone after doing the labs, not a gate.
