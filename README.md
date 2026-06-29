@@ -36,6 +36,24 @@ minutes** of a self-taught learner — not to deliver a finished curriculum.
 - **Demos are not production.** "It worked once" is never "it is ready".
 - **Specialist is a direction of maturity, not a title promise.**
 
+## What works today
+
+- The Applied AI Engineering formation architecture.
+- Level 1 entry path.
+- Lab 01 and Lab 02.
+- The AI Incident Support Assistant starter.
+- Synthetic dataset validation.
+- Manual dataset inspection.
+- Weak deterministic baseline.
+- Minimum evidence checking.
+
+## What does not work yet
+
+- Level 2 materials are planned, not built.
+- No LLM, RAG or Agent is implemented.
+- No certification or LMS exists.
+- No production-ready AI system is provided.
+
 ## Start here
 
 - **[START_HERE.md](START_HERE.md)** — find your profile and your next 30 minutes.

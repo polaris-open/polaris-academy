@@ -1,0 +1,11 @@
+# Polaris Academy code owners
+#
+# Starts simple (single maintainer) and can evolve into team ownership later,
+# e.g. @polaris-open/<team>.
+
+* @jorgeferreirajr
+
+/formations/ @jorgeferreirajr
+/starters/ @jorgeferreirajr
+/docs/ @jorgeferreirajr
+/.github/ @jorgeferreirajr
