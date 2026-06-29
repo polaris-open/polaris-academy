@@ -51,7 +51,8 @@ If something breaks, read the Level 1
 
 ## What to deliver as your first evidence
 
-Fill in, in your own copy of the starter:
+**First evidence (after Lab 01)** — start with three artifacts in your own copy of
+the starter:
 
 - [`problem-framing.md`](../../starters/ai-incident-support-assistant/problem-framing.md)
 - [`privacy-note.md`](../../starters/ai-incident-support-assistant/privacy-note.md)
@@ -59,6 +60,27 @@ Fill in, in your own copy of the starter:
 
 Your first evidence is: **setup/tests green + `problem-framing.md` and
 `privacy-note.md` started + `progress.md` showing what you ran.**
+
+**Full Level 1 evidence checkpoint (after Lab 02)** — you should then also have:
+
+- [`dataset-notes.md`](../../starters/ai-incident-support-assistant/dataset-notes.md)
+- [`manual-baseline.md`](../../starters/ai-incident-support-assistant/manual-baseline.md)
+- and an updated `progress.md`.
+
+That is **five artifacts** in total. Run `make evidence` **only once all five are
+filled in** — on a fresh clone they are still templates, so it will (correctly)
+report them as not filled yet:
+
+```bash
+cd starters/ai-incident-support-assistant
+make evidence
+```
+
+- `make check` validates the **starter and dataset** (your fast first success).
+- `make evidence` validates the **presence of the five artifacts** — not their
+  quality.
+- The lab **rubrics, self-assessment and examples** remain the qualitative
+  evaluation.
 
 ## What NOT to do yet
 

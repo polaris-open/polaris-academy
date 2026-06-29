@@ -14,6 +14,12 @@
   baseline before any AI. Prerequisite: Lab 01. ~45–60 minutes.
   Outputs: `dataset-notes.md`, `manual-baseline.md`, updated `progress.md`, a 3–5 rule
   baseline and a simple metric. **No LLM, no RAG, no Agent.**
+- **[Lab 03 — Implementing and Evaluating a Deterministic Baseline](labs/03-deterministic-baseline/README.md)**
+  — *planned.* Turn the manual baseline into executable deterministic rules with a
+  simple evaluation loop. Still **no LLM, no RAG, no Agent.**
 
 More labs will be added here as Level 1 grows. Each lab is self-contained: you can do
 it alone, in order, from its own `README.md`.
+
+After Lab 01 and Lab 02, use the [Level 1 Progress Contract](progress-contract.md) to
+decide whether you are ready to move forward.

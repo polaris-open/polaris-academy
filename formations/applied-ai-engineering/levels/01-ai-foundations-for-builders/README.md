@@ -15,6 +15,8 @@ required:
    — frame the problem, a baseline without AI, a metric and a privacy note. ~30–45 min.
 2. [Lab 02 — Dataset Understanding & Manual Baseline](./labs/02-dataset-understanding-and-manual-baseline/README.md)
    — inspect the synthetic dataset and design a deterministic manual baseline before using AI. ~45–60 min.
+3. [Lab 03 — Implementing and Evaluating a Deterministic Baseline](./labs/03-deterministic-baseline/README.md)
+   — *planned.* Turn the manual baseline into executable deterministic rules with a simple evaluation loop. Still no AI.
 
 The sections below frame *why*; the labs are *how* you actually do it.
 
@@ -45,14 +47,28 @@ You answer one honest question with your own example: **"does this even need AI?
 
 ## Artifacts you produce
 
-You fill in these files (templates live in
-[../../templates/](../../templates/), and the starter ships copies you edit):
+You fill these in inside the starter (you edit the starter's own copies; reusable
+templates for the Lab 01 ones also live in [../../templates/](../../templates/)):
 
-- [`problem-framing.md`](../../templates/problem-framing.md) — the problem, success
-  metric and baseline without AI.
-- [`privacy-note.md`](../../templates/privacy-note.md) — what the data is, that it
-  is synthetic, and what must never be sent to a model.
-- [`progress.md`](../../templates/progress.md) — what you ran and what you learned.
+**Lab 01:**
+
+- [`problem-framing.md`](../../../../starters/ai-incident-support-assistant/problem-framing.md)
+  — the problem, success metric and baseline without AI.
+- [`privacy-note.md`](../../../../starters/ai-incident-support-assistant/privacy-note.md)
+  — that the data is synthetic and what must never be sent to a model.
+- [`progress.md`](../../../../starters/ai-incident-support-assistant/progress.md)
+  — what you ran and what you learned.
+
+**Lab 02:**
+
+- [`dataset-notes.md`](../../../../starters/ai-incident-support-assistant/dataset-notes.md)
+  — what you saw in the dataset (fields, patterns, hard cases).
+- [`manual-baseline.md`](../../../../starters/ai-incident-support-assistant/manual-baseline.md)
+  — your 3–5 rule deterministic baseline and a metric.
+- plus an update to `progress.md`.
+
+All five are what `make evidence` checks for (presence, not quality) and what the
+[Progress Contract](progress-contract.md) lists as the minimum to advance.
 
 ## How to use the starter
 
@@ -77,8 +93,26 @@ make check    # runs the test and confirms success
 | `make check` | Runs the test and prints a clear success message. |
 | `make help` | Lists available commands. |
 
+## Evidence checkpoint
+
+Two different checks, two different jobs:
+
+- `make check` proves the **starter works** (dataset valid) — your fast first success.
+- `make evidence` proves the **minimum artifacts are present** — it does **not** grade
+  quality and does **not** replace self-assessment.
+
+To consider Level 1 *ready to advance*, you should have:
+
+- Lab 01 done and Lab 02 done;
+- `make evidence` passing;
+- your rubric self-assessment at least at **"Good"** on the main criteria.
+
+The full, explicit bar is in the
+[Level 1 Progress Contract](progress-contract.md).
+
 ## Next
 
 1. Do the first guided lab: [Lab 01 — Framing & Baseline](labs/01-framing-and-baseline/README.md).
-2. Self-assess against the [rubric.md](rubric.md).
-3. Stuck? [troubleshooting.md](troubleshooting.md).
+2. Then [Lab 02 — Dataset Understanding & Manual Baseline](labs/02-dataset-understanding-and-manual-baseline/README.md).
+3. Self-assess against the [rubric.md](rubric.md) and the [Progress Contract](progress-contract.md).
+4. Stuck? [troubleshooting.md](troubleshooting.md).
