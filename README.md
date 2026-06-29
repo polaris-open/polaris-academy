@@ -44,6 +44,9 @@ minutes** of a self-taught learner — not to deliver a finished curriculum.
 - **[AI Incident Support Assistant starter](starters/ai-incident-support-assistant/README.md)**
   — the minimal starter you run first.
 
+The first guided lab is available in Level 1:
+[Lab 01 — Framing & Baseline do AI Incident Assistant](formations/applied-ai-engineering/levels/01-ai-foundations-for-builders/labs/01-framing-and-baseline/README.md)
+
 ## Community & contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md),
