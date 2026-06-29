@@ -1,0 +1,33 @@
+# Secrets — never commit real credentials. Synthetic data only.
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+secrets.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
