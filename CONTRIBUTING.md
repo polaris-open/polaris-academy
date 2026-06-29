@@ -18,7 +18,13 @@ file only adds what is specific to Polaris Academy.
 
 ## Before opening a PR
 
-For starter changes, run:
+From the repo root, always run the data-hygiene validator:
+
+```bash
+python3 scripts/validate.py
+```
+
+For starter changes, also run:
 
 ```bash
 cd starters/ai-incident-support-assistant
