@@ -1,11 +1,20 @@
 # Polaris Academy code owners
 #
-# Starts simple (single maintainer) and can evolve into team ownership later,
-# e.g. @polaris-open/<team>.
+# Single maintainer today. The per-path lines below are ready to hand the sensitive
+# areas (datasets, validators, data policy, security, CI) to a dedicated security/data
+# team later — just swap @jorgeferreirajr on those lines.
 
 * @jorgeferreirajr
 
+# Learning content
 /formations/ @jorgeferreirajr
 /starters/ @jorgeferreirajr
 /docs/ @jorgeferreirajr
+
+# Sensitive: datasets, validators, data policy, security, CI
+data/ @jorgeferreirajr
+/scripts/ @jorgeferreirajr
+/tests/ @jorgeferreirajr
+/DATA_POLICY.md @jorgeferreirajr
+/SECURITY.md @jorgeferreirajr
 /.github/ @jorgeferreirajr

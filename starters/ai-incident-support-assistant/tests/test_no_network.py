@@ -94,6 +94,24 @@ class TestNoNetwork(unittest.TestCase):
                 offenders.append(f"{rel}: imports={sorted(bad_imports)} calls={sorted(bad_calls)}")
         self.assertEqual(offenders, [], "escape hatches found: " + "; ".join(offenders))
 
+    def test_detector_catches_synthetic_offender(self):
+        # Positive test: prove the detector actually flags network imports and
+        # escape hatches (not just that the real scripts happen to be clean).
+        src = (
+            "import os\n"
+            "import subprocess\n"
+            "import urllib.request\n"
+            "os.system('echo hi')\n"
+            "importlib.import_module('m')\n"
+            "__import__('m')\n"
+        )
+        tree = ast.parse(src)
+        roots = imported_roots(tree)
+        self.assertIn("urllib", roots & NETWORK_MODULES)
+        self.assertIn("subprocess", roots & ESCAPE_MODULES)
+        calls = escape_calls(tree)
+        self.assertEqual({"system", "import_module", "__import__"}, calls)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
