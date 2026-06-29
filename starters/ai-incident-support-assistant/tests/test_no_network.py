@@ -15,11 +15,18 @@ import unittest
 HERE = os.path.dirname(os.path.abspath(__file__))
 STARTER_ROOT = os.path.normpath(os.path.join(HERE, os.pardir))
 
+# Network modules: forbidden in ANY starter Python file.
 NETWORK_MODULES = {
     "socket", "ssl", "urllib", "http", "ftplib", "smtplib", "telnetlib",
     "poplib", "imaplib", "nntplib", "xmlrpc", "requests", "httpx", "urllib3",
     "aiohttp", "websocket", "websockets", "pycurl",
 }
+
+# Escape hatches: forbidden in the runtime scripts (scripts/). Test files legitimately
+# use importlib to load the module under test, so this stricter rule is scoped.
+ESCAPE_MODULES = {"subprocess", "importlib", "ctypes", "multiprocessing"}
+ESCAPE_CALL_ATTRS = {"system", "popen", "popen2", "popen3", "popen4", "import_module"}
+ESCAPE_CALL_NAMES = {"__import__", "eval", "exec"}
 
 
 def python_files():
@@ -30,9 +37,12 @@ def python_files():
                 yield os.path.join(dirpath, name)
 
 
-def imported_roots(path):
+def parse(path):
     with open(path, "r", encoding="utf-8") as handle:
-        tree = ast.parse(handle.read(), filename=path)
+        return ast.parse(handle.read(), filename=path)
+
+
+def imported_roots(tree):
     roots = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
@@ -44,17 +54,45 @@ def imported_roots(path):
     return roots
 
 
+def escape_calls(tree):
+    hits = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call):
+            func = node.func
+            if isinstance(func, ast.Attribute) and func.attr in ESCAPE_CALL_ATTRS:
+                hits.add(func.attr)
+            elif isinstance(func, ast.Name) and func.id in ESCAPE_CALL_NAMES:
+                hits.add(func.id)
+    return hits
+
+
+def is_runtime_script(path):
+    return os.sep + "scripts" + os.sep in path
+
+
 class TestNoNetwork(unittest.TestCase):
     def test_no_starter_script_imports_network(self):
         offenders = []
         files = list(python_files())
         self.assertTrue(files, "expected to find starter Python files")
         for path in files:
-            bad = imported_roots(path) & NETWORK_MODULES
+            bad = imported_roots(parse(path)) & NETWORK_MODULES
             if bad:
-                rel = os.path.relpath(path, STARTER_ROOT)
-                offenders.append(f"{rel} imports {sorted(bad)}")
+                offenders.append(f"{os.path.relpath(path, STARTER_ROOT)} imports {sorted(bad)}")
         self.assertEqual(offenders, [], "network imports found: " + "; ".join(offenders))
+
+    def test_runtime_scripts_have_no_escape_hatches(self):
+        offenders = []
+        for path in python_files():
+            if not is_runtime_script(path):
+                continue
+            tree = parse(path)
+            bad_imports = imported_roots(tree) & ESCAPE_MODULES
+            bad_calls = escape_calls(tree)
+            if bad_imports or bad_calls:
+                rel = os.path.relpath(path, STARTER_ROOT)
+                offenders.append(f"{rel}: imports={sorted(bad_imports)} calls={sorted(bad_calls)}")
+        self.assertEqual(offenders, [], "escape hatches found: " + "; ".join(offenders))
 
 
 if __name__ == "__main__":
