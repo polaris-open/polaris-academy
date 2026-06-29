@@ -49,6 +49,10 @@ to Level 1, and never commit secrets or real PII.
 
 If a contribution would add any of the above, it will not be merged.
 
+The full rules, safe placeholders, and how to report a real-data leak are in the
+[Data Policy](DATA_POLICY.md). Lab authors should also read the
+[Secure Lab Authoring Guide](docs/lab-authoring-security.md).
+
 ## The canonical document
 
 The canonical formation document is the architecture, not the course. Do not rewrite

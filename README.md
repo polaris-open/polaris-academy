@@ -32,7 +32,7 @@ minutes** of a self-taught learner — not to deliver a finished curriculum.
   100% alone.
 - **Synthetic data only.** All public learning data must be synthetic — never real
   production logs, customer data, corporate data, secrets, API keys, credentials or
-  real PII.
+  real PII. See [DATA_POLICY.md](DATA_POLICY.md).
 - **Demos are not production.** "It worked once" is never "it is ready".
 - **Specialist is a direction of maturity, not a title promise.**
 
@@ -68,7 +68,9 @@ The first guided lab is available in Level 1:
 ## Community & contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md),
-[SECURITY.md](SECURITY.md) and [SUPPORT.md](SUPPORT.md).
+[SECURITY.md](SECURITY.md), [SUPPORT.md](SUPPORT.md) and the
+[Data Policy](DATA_POLICY.md) (synthetic data only — what is allowed, forbidden, and
+how to report a leak).
 
 Licensing is **dual**: educational content under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and code under the
