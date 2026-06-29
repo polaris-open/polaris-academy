@@ -59,6 +59,10 @@ class TestPII(unittest.TestCase):
     def test_flags_formatted_cpf_like(self):
         self.assertTrue(v.find_pii("CPF 123.456.789-09"))
 
+    def test_line_word_does_not_suppress_real_email(self):
+        # "sample" in the line must NOT mark the real address as a placeholder.
+        self.assertTrue(v.find_pii("sample customer email: alice@gmail.com"))
+
 
 class TestLuhn(unittest.TestCase):
     def test_valid(self):
@@ -69,27 +73,56 @@ class TestLuhn(unittest.TestCase):
 
 
 class TestDataset(unittest.TestCase):
+    SYNTH = "data/synthetic-incidents.jsonl"
+
     def test_contains_pii_true_fails(self):
-        failures, _ = v.scan_dataset_text(
-            "data/synthetic-incidents.jsonl", '{"id": "X", "contains_pii": true}\n'
-        )
+        failures, _ = v.scan_dataset_text(self.SYNTH, '{"id": "X", "contains_pii": true}\n')
+        self.assertTrue(failures)
+
+    def test_contains_pii_missing_fails(self):
+        failures, _ = v.scan_dataset_text(self.SYNTH, '{"id": "X"}\n')
+        self.assertTrue(failures)
+
+    def test_contains_pii_null_fails(self):
+        failures, _ = v.scan_dataset_text(self.SYNTH, '{"id": "X", "contains_pii": null}\n')
+        self.assertTrue(failures)
+
+    def test_contains_pii_non_boolean_fails(self):
+        failures, _ = v.scan_dataset_text(self.SYNTH, '{"id": "X", "contains_pii": "false"}\n')
         self.assertTrue(failures)
 
     def test_invalid_json_fails(self):
         failures, _ = v.scan_dataset_text("data/x.jsonl", "{not json}\n")
         self.assertTrue(failures)
 
-    def test_clean_synthetic_record_passes(self):
-        failures, warnings = v.scan_dataset_text(
-            "data/synthetic-incidents.jsonl", '{"id": "X", "contains_pii": false}\n'
-        )
+    def test_clean_record_passes(self):
+        failures, warnings = v.scan_dataset_text(self.SYNTH, '{"id": "X", "contains_pii": false}\n')
         self.assertEqual(failures, [])
         self.assertEqual(warnings, [])
 
-    def test_non_synthetic_path_without_flags_warns(self):
-        failures, warnings = v.scan_dataset_text("data/records.jsonl", '{"id": "X"}\n')
+    def test_non_synthetic_path_warns_but_does_not_fail(self):
+        failures, warnings = v.scan_dataset_text("data/records.jsonl", '{"id": "X", "contains_pii": false}\n')
         self.assertEqual(failures, [])
         self.assertTrue(warnings)
+
+
+class TestPIITier(unittest.TestCase):
+    def test_pii_fatal_in_dataset(self):
+        self.assertTrue(v.pii_is_fatal("starters/x/data/synthetic-incidents.jsonl"))
+
+    def test_pii_fatal_in_lab_markdown(self):
+        self.assertTrue(v.pii_is_fatal(
+            "formations/applied-ai-engineering/levels/01-ai-foundations-for-builders/"
+            "labs/01-framing-and-baseline/examples/good-submission.md"
+        ))
+
+    def test_pii_fatal_in_starter_markdown(self):
+        self.assertTrue(v.pii_is_fatal("starters/ai-incident-support-assistant/README.md"))
+
+    def test_pii_warn_in_policy_docs(self):
+        self.assertFalse(v.pii_is_fatal("DATA_POLICY.md"))
+        self.assertFalse(v.pii_is_fatal("README.md"))
+        self.assertFalse(v.pii_is_fatal("docs/lab-authoring-security.md"))
 
 
 if __name__ == "__main__":

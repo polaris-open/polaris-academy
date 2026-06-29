@@ -75,20 +75,28 @@ _PLACEHOLDER_MARKERS = (
 )
 
 
+_RESERVED_EMAIL_DOMAINS = (".test", ".example", ".invalid", ".localhost")
+
+
 def is_secret_placeholder(match):
     return any(marker in match.lower() for marker in _PLACEHOLDER_MARKERS)
 
 
-def is_pii_placeholder(match, line):
-    text = (match + " " + line).lower()
-    if any(marker in text for marker in _PLACEHOLDER_MARKERS):
+def is_pii_placeholder(match):
+    """Decide placeholder status from the matched VALUE only (and reserved domains).
+
+    Deliberately ignores other words on the line, so a line like
+    "sample customer email: alice@gmail.com" still flags the real-looking address.
+    """
+    value = match.lower()
+    if any(marker in value for marker in _PLACEHOLDER_MARKERS):
         return True
     digits = re.sub(r"\D", "", match)
     if digits and len(set(digits)) == 1:  # all-same digit, e.g. 000... / 111...
         return True
-    if "@" in match:
-        domain = match.split("@")[-1].lower()
-        if domain.endswith((".test", ".example", ".invalid", ".localhost")) or "example" in domain:
+    if "@" in value:
+        domain = value.split("@")[-1]
+        if "example" in domain or domain.endswith(_RESERVED_EMAIL_DOMAINS):
             return True
     return False
 
@@ -122,13 +130,13 @@ def find_pii(text):
     for name, pattern in PII_PATTERNS.items():
         for m in pattern.finditer(text):
             line = lines[text.count("\n", 0, m.start())] if lines else ""
-            if not is_pii_placeholder(m.group(0), line):
+            if not is_pii_placeholder(m.group(0)):
                 out.append((name, m.group(0), line.strip()))
     for m in _CARD_CANDIDATE.finditer(text):
         digits = re.sub(r"\D", "", m.group(0))
         if 13 <= len(digits) <= 19 and luhn_ok(digits) and len(set(digits)) > 1:
             line = lines[text.count("\n", 0, m.start())] if lines else ""
-            if not is_pii_placeholder(m.group(0), line):
+            if not is_pii_placeholder(m.group(0)):
                 out.append(("credit-card-like (luhn)", m.group(0), line.strip()))
     return out
 
@@ -159,11 +167,17 @@ def check_essential(failures):
             failures.append(f"essential file is empty: {rel}")
 
 
+_MISSING = object()
+
+
 def scan_dataset_text(rel, text):
-    """Validate one JSONL dataset. Returns (failures, warnings) — pure and testable."""
+    """Validate one JSONL dataset. Returns (failures, warnings) — pure and testable.
+
+    Every JSON object record must explicitly declare `contains_pii: false` (the
+    boolean). Missing, true, null, or non-boolean values fail — that is the machine
+    enforcement of the Data Policy.
+    """
     failures, warnings = [], []
-    declared_synthetic = "synthetic" in rel.lower()
-    all_have_pii_flag = True
     records = 0
     for line_no, raw in enumerate(text.splitlines(), start=1):
         line = raw.strip()
@@ -176,16 +190,19 @@ def scan_dataset_text(rel, text):
             continue
         records += 1
         if isinstance(record, dict):
-            if record.get("contains_pii") is True:
-                failures.append(f"{rel}:{line_no}: record has contains_pii: true")
-            if "contains_pii" not in record:
-                all_have_pii_flag = False
+            value = record.get("contains_pii", _MISSING)
+            if value is not False:
+                shown = "missing" if value is _MISSING else repr(value)
+                failures.append(
+                    f"{rel}:{line_no}: contains_pii must be the boolean false (found: {shown})"
+                )
         else:
-            all_have_pii_flag = False
-    if records and not declared_synthetic and not all_have_pii_flag:
+            warnings.append(
+                f"{rel}:{line_no}: record is not a JSON object; cannot verify contains_pii — review"
+            )
+    if records and "synthetic" not in rel.lower():
         warnings.append(
-            f"{rel}: dataset does not clearly declare it is synthetic "
-            "(no 'synthetic' in path and no contains_pii flags) — review"
+            f"{rel}: dataset path does not contain 'synthetic' — consider naming it so"
         )
     return failures, warnings
 
@@ -199,13 +216,30 @@ def check_datasets(failures, warnings):
         warnings.extend(w)
 
 
+def pii_is_fatal(rel):
+    """Real-looking PII must never be committed to datasets or learning content.
+
+    FAIL there; only WARN in policy/docs that legitimately discuss PII shapes.
+    """
+    if rel.endswith((".jsonl", ".json", ".csv")):
+        return True
+    if rel.endswith((".md", ".txt")) and rel.startswith(("starters/", "formations/")):
+        return True
+    return False
+
+
 def scan_patterns(failures, warnings):
     for rel, full in iter_text_files():
         text = read_text(full)
         for name, match in find_real_secrets(text):
             failures.append(f"{rel}: possible real secret ({name}): {match[:12]}…")
-        for name, match, line in find_pii(text):
-            warnings.append(f"{rel}: possible {name}: {match} — review (line: {line[:60]})")
+        pii = find_pii(text)
+        if not pii:
+            continue
+        sink = failures if pii_is_fatal(rel) else warnings
+        verb = "must be synthetic/placeholder" if sink is failures else "review"
+        for name, match, line in pii:
+            sink.append(f"{rel}: possible {name}: {match} — {verb} (line: {line[:60]})")
 
 
 # Phrases that may encourage pasting real data. Warn-only and negation-aware, scoped
