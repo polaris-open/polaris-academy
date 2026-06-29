@@ -47,14 +47,28 @@ You answer one honest question with your own example: **"does this even need AI?
 
 ## Artifacts you produce
 
-You fill in these files (templates live in
-[../../templates/](../../templates/), and the starter ships copies you edit):
+You fill these in inside the starter (you edit the starter's own copies; reusable
+templates for the Lab 01 ones also live in [../../templates/](../../templates/)):
 
-- [`problem-framing.md`](../../templates/problem-framing.md) — the problem, success
-  metric and baseline without AI.
-- [`privacy-note.md`](../../templates/privacy-note.md) — what the data is, that it
-  is synthetic, and what must never be sent to a model.
-- [`progress.md`](../../templates/progress.md) — what you ran and what you learned.
+**Lab 01:**
+
+- [`problem-framing.md`](../../../../starters/ai-incident-support-assistant/problem-framing.md)
+  — the problem, success metric and baseline without AI.
+- [`privacy-note.md`](../../../../starters/ai-incident-support-assistant/privacy-note.md)
+  — that the data is synthetic and what must never be sent to a model.
+- [`progress.md`](../../../../starters/ai-incident-support-assistant/progress.md)
+  — what you ran and what you learned.
+
+**Lab 02:**
+
+- [`dataset-notes.md`](../../../../starters/ai-incident-support-assistant/dataset-notes.md)
+  — what you saw in the dataset (fields, patterns, hard cases).
+- [`manual-baseline.md`](../../../../starters/ai-incident-support-assistant/manual-baseline.md)
+  — your 3–5 rule deterministic baseline and a metric.
+- plus an update to `progress.md`.
+
+All five are what `make evidence` checks for (presence, not quality) and what the
+[Progress Contract](progress-contract.md) lists as the minimum to advance.
 
 ## How to use the starter
 

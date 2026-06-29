@@ -46,6 +46,21 @@ _CHECKBOX = re.compile(r"^[-*]\s*\[[ xX]\]")
 _BARE_MARKER = re.compile(r"^([-*]|\d+\.)$")
 _WORDS = re.compile(r"\w+")
 
+# Lines that are technically 2+ words but carry no real answer. Rejected so a
+# placeholder like "TODO later" does not pass as evidence. This is still presence,
+# not quality: it only filters obviously empty stand-ins.
+_GENERIC_PLACEHOLDERS = {
+    "todo", "todo later", "tbd", "to be defined", "to be determined",
+    "n/a", "na", "none", "later", "fill later", "fixme", "xxx", "wip",
+}
+
+
+def _normalize(line):
+    text = line.strip().strip("|").strip()
+    text = re.sub(r"^([-*]|\d+\.)\s*", "", text)  # leading list marker
+    text = re.sub(r"[`*_>#\[\]]", "", text)        # light markdown
+    return text.strip().lower().strip(".!,;: ")
+
 
 def student_content_lines(text):
     """Return the lines that look like content the learner wrote.
@@ -95,8 +110,17 @@ def student_content_lines(text):
 
 
 def is_filled(content_lines):
-    """At least one substantive line (>= 2 words) means the learner wrote something."""
-    return any(len(_WORDS.findall(line)) >= 2 for line in content_lines)
+    """True if the learner wrote at least one substantive, non-placeholder line.
+
+    A line counts when it has >= 2 words and is not a generic placeholder
+    (e.g. "TODO", "TBD", "n/a"). This stays a presence check, not a quality judge.
+    """
+    for line in content_lines:
+        if _normalize(line) in _GENERIC_PLACEHOLDERS:
+            continue
+        if len(_WORDS.findall(line)) >= 2:
+            return True
+    return False
 
 
 def check_artifact(filename):
