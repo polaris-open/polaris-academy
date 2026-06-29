@@ -6,6 +6,15 @@ The conceptual and data foundation for anyone who will build with AI. **No LLM, 
 chatbot, no RAG, no Agent.** This level installs the central discipline: **define
 success before you build.**
 
+## First guided lab
+
+This is the **first real teaching material** of Level 1 — a hands-on lab you can
+finish in 30–45 minutes, no AI required. Start here:
+
+[Lab 01 — Framing & Baseline do AI Incident Assistant](./labs/01-framing-and-baseline/README.md)
+
+The sections below frame *why*; the lab is *how* you actually do it.
+
 ## Objective
 
 Move from "AI is magic" to "I can frame a problem, choose a metric, define a
@@ -29,7 +38,7 @@ You answer one honest question with your own example: **"does this even need AI?
 - Basic Python (enough to read and run a small standard-library script).
 - No prior AI/ML experience required.
 
-> See the canonical document, Section 9, for the full level definition.
+> See the [canonical document](../../canonical/formacao-polaris-applied-ai-engineering-v0.1.md), Section 9, for the full level definition.
 
 ## Artifacts you produce
 
@@ -67,6 +76,6 @@ make check    # runs the test and confirms success
 
 ## Next
 
-1. Do the lab: [lab-guide.md](lab-guide.md).
+1. Do the first guided lab: [Lab 01 — Framing & Baseline](labs/01-framing-and-baseline/README.md).
 2. Self-assess against the [rubric.md](rubric.md).
 3. Stuck? [troubleshooting.md](troubleshooting.md).
