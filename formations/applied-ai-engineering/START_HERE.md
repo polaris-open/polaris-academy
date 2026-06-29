@@ -60,6 +60,19 @@ Fill in, in your own copy of the starter:
 Your first evidence is: **setup/tests green + `problem-framing.md` and
 `privacy-note.md` started + `progress.md` showing what you ran.**
 
+Once you have filled the artifacts in, you can check them:
+
+```bash
+cd starters/ai-incident-support-assistant
+make evidence
+```
+
+- `make check` validates the **starter and dataset** (your fast first success).
+- `make evidence` validates the **presence of the minimum artifacts** — not their
+  quality.
+- The lab **rubrics, self-assessment and examples** remain the qualitative
+  evaluation.
+
 ## What NOT to do yet
 
 - **Do not start with RAG.**

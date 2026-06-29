@@ -15,6 +15,8 @@ required:
    — frame the problem, a baseline without AI, a metric and a privacy note. ~30–45 min.
 2. [Lab 02 — Dataset Understanding & Manual Baseline](./labs/02-dataset-understanding-and-manual-baseline/README.md)
    — inspect the synthetic dataset and design a deterministic manual baseline before using AI. ~45–60 min.
+3. [Lab 03 — Implementing and Evaluating a Deterministic Baseline](./labs/03-deterministic-baseline/README.md)
+   — *planned.* Turn the manual baseline into executable deterministic rules with a simple evaluation loop. Still no AI.
 
 The sections below frame *why*; the labs are *how* you actually do it.
 
@@ -77,8 +79,26 @@ make check    # runs the test and confirms success
 | `make check` | Runs the test and prints a clear success message. |
 | `make help` | Lists available commands. |
 
+## Evidence checkpoint
+
+Two different checks, two different jobs:
+
+- `make check` proves the **starter works** (dataset valid) — your fast first success.
+- `make evidence` proves the **minimum artifacts are present** — it does **not** grade
+  quality and does **not** replace self-assessment.
+
+To consider Level 1 *ready to advance*, you should have:
+
+- Lab 01 done and Lab 02 done;
+- `make evidence` passing;
+- your rubric self-assessment at least at **"Good"** on the main criteria.
+
+The full, explicit bar is in the
+[Level 1 Progress Contract](progress-contract.md).
+
 ## Next
 
 1. Do the first guided lab: [Lab 01 — Framing & Baseline](labs/01-framing-and-baseline/README.md).
-2. Self-assess against the [rubric.md](rubric.md).
-3. Stuck? [troubleshooting.md](troubleshooting.md).
+2. Then [Lab 02 — Dataset Understanding & Manual Baseline](labs/02-dataset-understanding-and-manual-baseline/README.md).
+3. Self-assess against the [rubric.md](rubric.md) and the [Progress Contract](progress-contract.md).
+4. Stuck? [troubleshooting.md](troubleshooting.md).

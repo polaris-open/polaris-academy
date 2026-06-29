@@ -3,7 +3,7 @@
 
 PYTHON ?= python3
 
-.PHONY: help setup test check inspect-dataset manual-baseline
+.PHONY: help setup test check inspect-dataset manual-baseline evidence
 
 help:
 	@echo "Available commands:"
@@ -12,6 +12,7 @@ help:
 	@echo "  make check           - run the test and confirm success"
 	@echo "  make inspect-dataset - print a read-only summary of the dataset (Lab 02)"
 	@echo "  make manual-baseline - run a weak, rule-based baseline (NOT AI) (Lab 02)"
+	@echo "  make evidence        - check minimum Level 1 evidence files (no AI, read-only)"
 	@echo "  make help            - show this help"
 
 setup:
@@ -42,3 +43,6 @@ inspect-dataset:
 
 manual-baseline:
 	@$(PYTHON) scripts/manual_baseline.py
+
+evidence:
+	@$(PYTHON) scripts/check_evidence.py

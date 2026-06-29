@@ -47,7 +47,7 @@ How to measure it:
 
 ## Why not AI yet?
 
-Explain why LLM/RAG/Agent is premature at this stage.
+<!-- Explain why LLM/RAG/Agent is premature at this stage. -->
 
 ## Next questions for Lab 03
 

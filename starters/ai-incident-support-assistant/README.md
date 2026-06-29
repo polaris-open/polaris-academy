@@ -50,10 +50,28 @@ As you work through Level 1, fill in these files (the templates live in the
 formation's [templates folder](../../formations/applied-ai-engineering/templates/)):
 
 - [`problem-framing.md`](problem-framing.md) — the problem, success metric and
-  baseline without AI.
+  baseline without AI. *(Lab 01)*
 - [`privacy-note.md`](privacy-note.md) — confirm the data is synthetic and list what
-  must never be sent to a model.
-- [`progress.md`](progress.md) — what you ran and what you learned.
+  must never be sent to a model. *(Lab 01)*
+- [`progress.md`](progress.md) — what you ran and what you learned. *(Lab 01)*
+- [`dataset-notes.md`](dataset-notes.md) — what you saw in the dataset. *(Lab 02)*
+- [`manual-baseline.md`](manual-baseline.md) — your deterministic baseline. *(Lab 02)*
+
+## Checking your evidence
+
+After you work through Lab 01 and Lab 02, run:
+
+```bash
+make evidence
+```
+
+This checks whether the minimum Level 1 evidence files are present and contain basic
+signals of work. **It does not grade quality.** It only catches missing or obviously
+incomplete evidence (e.g. a file you have not filled in yet). Use the lab rubrics,
+self-assessment and examples to evaluate quality.
+
+> On a fresh clone the artifact files are still templates, so `make evidence` will
+> report them as not filled in — that is expected until you do the labs.
 
 ## What NOT to do
 
