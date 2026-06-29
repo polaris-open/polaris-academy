@@ -47,5 +47,8 @@ minutes** of a self-taught learner — not to deliver a finished curriculum.
 ## Community & contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md),
-[SECURITY.md](SECURITY.md) and [SUPPORT.md](SUPPORT.md). Licensing is still being
-decided — see [LICENSE.md](LICENSE.md).
+[SECURITY.md](SECURITY.md) and [SUPPORT.md](SUPPORT.md).
+
+Licensing is **dual**: educational content under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and code under the
+[MIT License](https://opensource.org/license/mit). See [LICENSE.md](LICENSE.md).

@@ -13,6 +13,14 @@ It defines the **architecture, patterns, levels, rubrics and criteria** of the
 formation. It is the single source of truth for *how the formation is structured*
 and *what "good" means*.
 
+> **Note on the "internal" label.** The document was originally written as an
+> **internal** canonical architecture document (it still says "documento canônico
+> interno" in its header). It is now **published openly** as the public architecture
+> reference for this open source formation. The word "internal" reflects the original
+> drafting context, not a restriction — the content is intentionally public. The
+> document itself is kept **verbatim** (see *Editing rule* below), so the original
+> wording is preserved rather than rewritten.
+
 ## What it is not
 
 **It is not the complete course.** It is not lesson material. It should not be
