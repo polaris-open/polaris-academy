@@ -1,14 +1,18 @@
 # AI Incident Support Assistant — starter Makefile
 # Unix / macOS / Linux. Standard library only. No LLM, no network, no Docker.
 
-.PHONY: help setup test check
+PYTHON ?= python3
+
+.PHONY: help setup test check inspect-dataset manual-baseline
 
 help:
 	@echo "Available commands:"
-	@echo "  make setup  - check your Python install and print next steps"
-	@echo "  make test   - validate the synthetic dataset"
-	@echo "  make check  - run the test and confirm success"
-	@echo "  make help   - show this help"
+	@echo "  make setup           - check your Python install and print next steps"
+	@echo "  make test            - validate the synthetic dataset"
+	@echo "  make check           - run the test and confirm success"
+	@echo "  make inspect-dataset - print a read-only summary of the dataset (Lab 02)"
+	@echo "  make manual-baseline - run a weak, rule-based baseline (NOT AI) (Lab 02)"
+	@echo "  make help            - show this help"
 
 setup:
 	@echo "== AI Incident Support Assistant — setup =="
@@ -32,3 +36,9 @@ test:
 
 check: test
 	@echo "CHECK PASSED: the synthetic dataset is valid. You are ready for Level 1."
+
+inspect-dataset:
+	@$(PYTHON) scripts/inspect_dataset.py
+
+manual-baseline:
+	@$(PYTHON) scripts/manual_baseline.py

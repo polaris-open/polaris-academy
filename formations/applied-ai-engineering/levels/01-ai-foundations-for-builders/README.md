@@ -6,14 +6,17 @@ The conceptual and data foundation for anyone who will build with AI. **No LLM, 
 chatbot, no RAG, no Agent.** This level installs the central discipline: **define
 success before you build.**
 
-## First guided lab
+## Guided labs
 
-This is the **first real teaching material** of Level 1 — a hands-on lab you can
-finish in 30–45 minutes, no AI required. Start here:
+The real teaching material of Level 1. Do them in order — each is hands-on, no AI
+required:
 
-[Lab 01 — Framing & Baseline do AI Incident Assistant](./labs/01-framing-and-baseline/README.md)
+1. [Lab 01 — Framing & Baseline do AI Incident Assistant](./labs/01-framing-and-baseline/README.md)
+   — frame the problem, a baseline without AI, a metric and a privacy note. ~30–45 min.
+2. [Lab 02 — Dataset Understanding & Manual Baseline](./labs/02-dataset-understanding-and-manual-baseline/README.md)
+   — inspect the synthetic dataset and design a deterministic manual baseline before using AI. ~45–60 min.
 
-The sections below frame *why*; the lab is *how* you actually do it.
+The sections below frame *why*; the labs are *how* you actually do it.
 
 ## Objective
 

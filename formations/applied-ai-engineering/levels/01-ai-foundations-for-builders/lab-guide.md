@@ -9,6 +9,11 @@
 - **[Lab 01 — Framing & Baseline do AI Incident Assistant](labs/01-framing-and-baseline/README.md)**
   — define the problem, a baseline without AI, a simple metric and a privacy note.
   ~30–45 minutes. **No LLM, no RAG, no Agent.**
+- **[Lab 02 — Dataset Understanding & Manual Baseline](labs/02-dataset-understanding-and-manual-baseline/README.md)**
+  — objective: understand the synthetic dataset and design a deterministic manual
+  baseline before any AI. Prerequisite: Lab 01. ~45–60 minutes.
+  Outputs: `dataset-notes.md`, `manual-baseline.md`, updated `progress.md`, a 3–5 rule
+  baseline and a simple metric. **No LLM, no RAG, no Agent.**
 
 More labs will be added here as Level 1 grows. Each lab is self-contained: you can do
 it alone, in order, from its own `README.md`.
