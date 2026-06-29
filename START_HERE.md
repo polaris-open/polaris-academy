@@ -36,6 +36,7 @@ make check
 The concrete first thing to **do** is the first guided lab:
 
 - **[Lab 01 — Framing & Baseline do AI Incident Assistant](formations/applied-ai-engineering/levels/01-ai-foundations-for-builders/labs/01-framing-and-baseline/README.md)** — ~30–45 min, no AI.
+- then **[Lab 02 — Dataset Understanding & Manual Baseline](formations/applied-ai-engineering/levels/01-ai-foundations-for-builders/labs/02-dataset-understanding-and-manual-baseline/README.md)** — ~45–60 min: understand the dataset and build a manual baseline before any AI.
 
 For the bigger picture:
 
