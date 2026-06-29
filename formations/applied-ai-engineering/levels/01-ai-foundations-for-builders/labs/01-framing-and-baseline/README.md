@@ -40,6 +40,8 @@ reproducible evidence.
 
 ## Main commands
 
+Run from the **repo root** (the directory where you cloned this repo):
+
 ```bash
 cd starters/ai-incident-support-assistant
 make setup
@@ -47,15 +49,27 @@ make test
 make check
 ```
 
+## Where do I write my answers?
+
+Edit the files inside the starter — not the templates:
+
+- `starters/ai-incident-support-assistant/problem-framing.md`
+- `starters/ai-incident-support-assistant/privacy-note.md`
+- `starters/ai-incident-support-assistant/progress.md`
+
+The templates under `formations/applied-ai-engineering/templates/` are reusable references.
+For your first run, edit the starter files directly.
+
 ## Final artifacts
 
 By the end you will have:
 
-- `problem-framing.md` — filled in (problem, persona, workflow, metric, baseline).
-- `privacy-note.md` — filled in (synthetic confirmation + what must never be sent).
-- `progress.md` — updated with commands run and what you learned.
-- The `make check` output as evidence.
-- A short written **baseline without AI** and a short written **success metric**.
+- run `make check` successfully and kept the output;
+- `problem-framing.md` — filled in (problem, persona, workflow, metric, baseline);
+- `privacy-note.md` — filled in (synthetic confirmation + what must never be sent);
+- `progress.md` — updated with commands run and what you learned;
+- a short written **baseline without AI** and a short written **success metric**;
+- a short explanation of **why LLM/RAG/Agent is not needed yet**.
 
 ## Where to go next
 

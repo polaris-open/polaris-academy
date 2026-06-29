@@ -5,6 +5,8 @@
 
 ## Step 1 — Enter the starter
 
+Run from the **repo root** (the directory where you cloned this repo):
+
 ```bash
 cd starters/ai-incident-support-assistant
 ```
