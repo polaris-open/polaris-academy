@@ -30,9 +30,9 @@ setup:
 
 test:
 	@if command -v python3 >/dev/null 2>&1; then \
-		python3 tests/test_dataset.py && python3 tests/test_check_evidence.py; \
+		python3 tests/test_dataset.py && python3 tests/test_check_evidence.py && python3 tests/test_no_network.py; \
 	else \
-		python tests/test_dataset.py && python tests/test_check_evidence.py; \
+		python tests/test_dataset.py && python tests/test_check_evidence.py && python tests/test_no_network.py; \
 	fi
 
 check: test

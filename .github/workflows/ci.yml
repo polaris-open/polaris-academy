@@ -6,16 +6,27 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
-  starter:
-    name: Validate starter
+  validate:
+    name: Validate repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Show Python version
         run: python3 --version
+
+      - name: Validate repository data hygiene
+        run: python3 scripts/validate.py
+
+      - name: Repository validator tests
+        run: python3 tests/test_validate.py
 
       - name: Run starter checks
         working-directory: starters/ai-incident-support-assistant
@@ -27,11 +38,13 @@ jobs:
           make manual-baseline
 
       - name: Compile Python scripts
-        working-directory: starters/ai-incident-support-assistant
         run: |
+          python3 -m py_compile scripts/validate.py tests/test_validate.py
+          cd starters/ai-incident-support-assistant
           python3 -m py_compile \
             tests/test_dataset.py \
             tests/test_check_evidence.py \
+            tests/test_no_network.py \
             scripts/inspect_dataset.py \
             scripts/manual_baseline.py \
             scripts/check_evidence.py
