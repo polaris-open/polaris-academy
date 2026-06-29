@@ -7,9 +7,11 @@ This repo is **self-paced first**. Nothing below requires a human to unblock you
 Pick the row that sounds like you.
 
 The first command never depends on a future version of the project. The only
-commands you need to start exist in the starter today:
+commands you need to start exist in the starter today. **Run them from the starter
+directory:**
 
 ```bash
+cd starters/ai-incident-support-assistant
 make setup
 make test
 make check

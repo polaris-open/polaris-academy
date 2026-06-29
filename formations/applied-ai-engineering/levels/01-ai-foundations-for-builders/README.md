@@ -38,7 +38,7 @@ You answer one honest question with your own example: **"does this even need AI?
 - Basic Python (enough to read and run a small standard-library script).
 - No prior AI/ML experience required.
 
-> See the canonical document, Section 9, for the full level definition.
+> See the [canonical document](../../canonical/formacao-polaris-applied-ai-engineering-v0.1.md), Section 9, for the full level definition.
 
 ## Artifacts you produce
 
